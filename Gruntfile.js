@@ -8,13 +8,13 @@ module.exports = function (grunt) {
                 }
             }
         },
-        sass: {
-            dist: {
-                files: {
-                    'css/365scores.css': 'css/365scores.scss'
-                }
-            }
-        },
+        // sass: {
+        //     dist: {
+        //         files: {
+        //             'css/365scores.css': 'css/365scores.scss'
+        //         }
+        //     }
+        // },
         copy: {
             files: {
                 src: 'node_modules/normalize.css/normalize.css',
@@ -35,10 +35,10 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            sass: {
-                files: ['**/*.scss'],
-                tasks: ['sass']
-            },
+            // sass: {
+            //     files: ['**/*.scss'],
+            //     tasks: ['sass']
+            // },
             js: {
                 files: ['<%= jshint.files %>'],
                 tasks: ['jshint']
@@ -54,6 +54,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-open');
 
 
-    grunt.registerTask('default', ['copy', 'jshint', 'sass', 'connect', 'open', 'watch']);
+    grunt.registerTask('default', ['copy', 'jshint', 'connect', 'open', 'watch']);
 
 };

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="365scoreApp">
 <head>
     <title>365Scores Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/normalize.css" rel="stylesheet" media="screen">
     <link href="css/365scores.css" rel="stylesheet" media="screen">
 </head>
-<body>
+<body ng-controller="MainCtrl">
 <div class="header">
     <div class="logo-wrapper">
         <a href="index.html"><img src="images/logo.png" alt="365Scores"></a>
@@ -24,214 +24,60 @@
 </div>
 <div class="main-section">
 
-
     <!-- Sunday, 27 March -->
     <div class="centered-box">
         <div class="day-grouping">
             Sunday, 27 March
         </div>
     </div>
-    <div class="scores-box">
+    <div class="scores-box" ng-repeat="comp in games">
         <div class="scores-box-header">
-            <img src="images/logo.png" width="30" height="20">
-            <h3>Champions League</h3>
+            <img ng-src="http://imagescache.365scores.com/image/upload/w_140,h_140,c_limit,f_webp,q_90,d_Countries:Round:default.png/Countries/Round/{{comp.countryId}}" width="30" height="20">
+            <h3>{{ comp.compName }}</h3>
         </div>
-        <div class="scores-box-row">
+        <div class="scores-box-row" ng-repeat="game in comp.gamesList">
             <div class="logo1">
-                <img src="images/logo.png">
+                <img ng-src="http://imagescache.365scores.com/image/upload/w_48,h_48,c_limit,f_webp,q_90,d_Competitors:default1.png/Competitors/{{game.Comps[0].ID}}">
             </div>
             <div class="side1">
-                FC Barcelona
+                {{ game.Comps[0].Name }}
             </div>
-            <div class="status-wrapper status-past">
+
+            <div ng-if="game.Active == false && game.Scrs[0] !== -1 && game.Scrs[1] !== -1" class="status-wrapper status-past">
                 <div class="score">
-                    3-1
+                    {{ game.Scrs[0] }} - {{ game.Scrs[1] }}
                 </div>
                 <span class="status">Finished</span>
             </div>
-            <div class="side2">
-                FC Bayern Munchenan
-
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                Chelsea
-            </div>
-            <div class="status-wrapper status-past">
+            <div ng-if="game.Active == false && game.Scrs[0] === -1 && game.Scrs[1] === -1" class="status-wrapper status-past">
+                <span class="status">{{ game.date[0] }}</span>
                 <div class="score">
-                    5-3
+                    {{ game.date[1] }}
                 </div>
-                <span class="status">Finished</span>
             </div>
+            <div ng-if="game.Active == true" class="status-wrapper status-past">
+                <span ng-if="game.GT <= 45" class="status">First Half</span>
+                <span ng-if="game.GT > 45" class="status">Second Half</span>
+                <div class="score">
+                    {{ game.Scrs[0] }} - {{ game.Scrs[1] }}
+                </div>
+                <span ng-if="game.Active == true" class="live">LIVE - '{{ game.GT }}</span>
+            </div>
+
             <div class="side2">
-                Roma
+                {{ game.Comps[1].Name }}
             </div>
             <div class="logo2">
-                <img src="images/logo.png">
+                <img ng-src="http://imagescache.365scores.com/image/upload/w_48,h_48,c_limit,f_webp,q_90,d_Competitors:default1.png/Competitors/{{game.Comps[1].ID}}">
             </div>
         </div>
     </div>
 
-    <!-- Today -->
-    <div class="centered-box">
-        <div class="day-grouping">
-            Today
-        </div>
-    </div>
-    <div class="scores-box">
-        <div class="scores-box-header">
-            <img src="images/logo.png" width="30" height="20">
-            <h3>Serie A</h3>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                FC Barcelona
-            </div>
-            <div class="status-wrapper">
-                <div class="extra">Second Half</div>
-                <div class="score">
-                    0-1
-                </div>
-                <span class="live">LIVE - '55</span>
-            </div>
-            <div class="side2">
-                FC Bayern Munchen
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                Chelsea
-            </div>
-            <div class="status-wrapper">
-                <div class="extra">First Half</div>
-                <div class="score">
-                    1-1
-                </div>
-                <span class="live">LIVE - '20</span>
-            </div>
-            <div class="side2">
-                Roma
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-    </div>
-    <div class="scores-box">
-        <div class="scores-box-header">
-            <img src="images/logo.png" width="30" height="20">
-            <h3>Champions League</h3>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                FC Barcelona
-            </div>
-            <div class="status-wrapper status-future">
-                <div class="score">
-                    19:45
-                </div>
-            </div>
-            <div class="side2">
-                FC Bayern Munchen
-
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                Chelsea
-            </div>
-            <div class="status-wrapper status-future">
-                <div class="score">
-                    20:00
-                </div>
-            </div>
-            <div class="side2">
-                Roma
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-    </div>
-
-    <!-- Tomorrow -->
-    <div class="centered-box">
-        <div class="day-grouping">
-            Tomorrow
-        </div>
-    </div>
-    <div class="scores-box">
-        <div class="scores-box-header">
-            <img src="images/logo.png" width="30" height="20">
-            <h3>Champions League</h3>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                FC Barcelona
-            </div>
-            <div class="status-wrapper status-future">
-                <div class="score">
-                    12:40
-                </div>
-            </div>
-            <div class="side2">
-                FC Bayern Munchen
-
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-        <div class="scores-box-row">
-            <div class="logo1">
-                <img src="images/logo.png">
-            </div>
-            <div class="side1">
-                Chelsea
-            </div>
-            <div class="status-wrapper status-future">
-                <div class="score">
-                    12:40
-                </div>
-            </div>
-            <div class="side2">
-                Roma
-            </div>
-            <div class="logo2">
-                <img src="images/logo.png">
-            </div>
-        </div>
-    </div>
 </div>
 
+<script src="bower_components/angular/angular.js"></script>
 <script src="src/app.js"></script>
+<script src="src/controllers/MainCtrl.js"></script>
+<script src="src/services/MainService.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
 (function() {
-	// app code?
+	angular.module('365scoreApp', []);
+	
 })();
