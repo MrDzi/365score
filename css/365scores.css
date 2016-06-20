@@ -1,0 +1,114 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #ffffff;
+  background-color: #21282d; }
+
+a {
+  text-decoration: none;
+  color: #ffffff; }
+
+ul {
+  margin: 0;
+  padding: 0; }
+  ul li {
+    margin: 0;
+    list-style-type: none; }
+
+.header {
+  background-color: #081621;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px; }
+
+.logo-wrapper {
+  padding: 20px 25px; }
+
+.sidebar {
+  background-color: #2e373e;
+  position: fixed;
+  left: 0;
+  top: 90px;
+  width: 170px;
+  height: 100%;
+  padding-top: 20px; }
+  .sidebar ul {
+    padding: 0 25px; }
+    .sidebar ul li {
+      font-size: 20px;
+      padding: 20px 0; }
+    .sidebar ul li.current a {
+      color: #18b5e2; }
+
+.main-section {
+  margin-left: 170px;
+  margin-top: 130px; }
+
+.centered-box, .scores-box {
+  margin: 0 auto;
+  width: 700px; }
+  .centered-box .day-grouping, .scores-box .day-grouping {
+    text-align: center;
+    font-size: 24px;
+    margin: 40px 0 30px 0;
+    color: #5d93ad; }
+
+.scores-box {
+  border-radius: 8px;
+  background-color: #2e373e;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px; }
+  .scores-box .scores-box-header {
+    color: #18b5e2;
+    font: 20px;
+    background-color: #272f35;
+    border-radius: 8px 8px 0 0;
+    line-height: 50px;
+    padding: 0 3%; }
+    .scores-box .scores-box-header img {
+      float: left;
+      padding: 15px 15px 15px 0; }
+    .scores-box .scores-box-header h3 {
+      margin: 0;
+      font-weight: normal; }
+  .scores-box .scores-box-row {
+    height: 90px;
+    border-bottom: solid 1px #21282d;
+    clear: both; }
+    .scores-box .scores-box-row .logo1, .scores-box .scores-box-row .logo2, .scores-box .scores-box-row .side1, .scores-box .scores-box-row .side2, .scores-box .scores-box-row .status-wrapper {
+      float: left; }
+    .scores-box .scores-box-row .logo1, .scores-box .scores-box-row .logo2 {
+      width: 4%;
+      padding: 30px 3%; }
+      .scores-box .scores-box-row .logo1 img, .scores-box .scores-box-row .logo2 img {
+        width: 100%; }
+    .scores-box .scores-box-row .side1, .scores-box .scores-box-row .side2 {
+      width: 30%;
+      line-height: 80px;
+      font-size: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+    .scores-box .scores-box-row .status-wrapper {
+      width: 20%;
+      text-align: center; }
+      .scores-box .scores-box-row .status-wrapper .score {
+        font-size: 36px;
+        font-weight: bold;
+        line-height: 44px;
+        color: #18b5e2; }
+      .scores-box .scores-box-row .status-wrapper .extra {
+        line-height: 20px;
+        color: #5d93ad; }
+      .scores-box .scores-box-row .status-wrapper .status {
+        color: #5d93ad; }
+      .scores-box .scores-box-row .status-wrapper .live {
+        background-color: #ce1126;
+        padding: 2px 9px;
+        border-radius: 10px; }
+    .scores-box .scores-box-row .status-past .score {
+      padding-top: 20px; }
+    .scores-box .scores-box-row .status-future .score {
+      padding-top: 20px; }
+
+/*# sourceMappingURL=365scores.css.map */
