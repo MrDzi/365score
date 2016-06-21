@@ -24,6 +24,13 @@ ul {
 .logo-wrapper {
   padding: 20px 25px; }
 
+.menu-trigger {
+  display: none;
+  float: right; }
+  @media only screen and (max-width: 767px) {
+    .menu-trigger {
+      display: block; } }
+
 .sidebar {
   background-color: #2e373e;
   position: fixed;
@@ -32,6 +39,14 @@ ul {
   width: 170px;
   height: 100%;
   padding-top: 20px; }
+  @media only screen and (max-width: 767px) {
+    .sidebar {
+      position: absolute;
+      right: 0;
+      width: 100%;
+      display: none; }
+      .sidebar.is-opened {
+        display: block; } }
   .sidebar ul {
     padding: 0 25px; }
     .sidebar ul li {
@@ -89,6 +104,8 @@ ul {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis; }
+    .scores-box .scores-box-row .side2 {
+      text-align: right; }
     .scores-box .scores-box-row .status-wrapper {
       width: 20%;
       text-align: center; }

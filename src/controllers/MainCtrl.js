@@ -8,14 +8,18 @@
 		$scope.competitions = [];
 		$scope.countries = [];
 		$scope.lastUpdateID = null;
+		$scope.currentDate = null;
+		$scope.toggleMenu = false;
 
 		// initial function, gets all games, competitions and countries
 		function init() {
 			MainService.getGames().then(function(response){
-				var allGames = response.data["Games"];
-				$scope.competitions = response.data["Competitions"];
-				$scope.countries = response.data["Countries"];
-				$scope.lastUpdateID = response.data["LastUpdateID"];
+				var allGames = response.data.Games;
+				$scope.competitions = response.data.Competitions;
+				$scope.countries = response.data.Countries;
+				$scope.lastUpdateID = response.data.LastUpdateID;
+				var dateString = response.data.CurrentDate.split('-');
+				$scope.currentDate = new Date(dateString[2], dateString[1] - 1, dateString[0]);
 
 				structureGames(allGames);
 			});
@@ -34,8 +38,8 @@
 
 				if (!$scope.games[compId]) {
 					$scope.games[compId] = {
-						compName: competition[0]["Name"],
-						countryId: competition[0]["CID"],
+						compName: competition[0].Name,
+						countryId: competition[0].CID,
 						gamesList: []
 					};
 				}
@@ -65,6 +69,7 @@
 						var existingGame;
 						angular.forEach($scope.games[compId].gamesList, function(game, index){
 							if (updatedGames[i].ID === game.ID) {
+
 								// update specific game
 								angular.forEach(updatedGames[i], function(newValue, newKey){
 									angular.forEach($scope.games[game.Comp].gamesList[index], function(value, key){

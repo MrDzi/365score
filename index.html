@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/normalize.css" rel="stylesheet" media="screen">
     <link href="css/365scores.css" rel="stylesheet" media="screen">
+    <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
 </head>
 <body ng-controller="MainCtrl">
 <div class="header">
     <div class="logo-wrapper">
         <a href="index.html"><img src="images/logo.png" alt="365Scores"></a>
+        <a class="menu-trigger" ng-click="toggleMenu = !toggleMenu"><i class="fa fa-bars" aria-hidden="true"></i></a>
     </div>
+
 </div>
-<div class="sidebar">
+<div class="sidebar" ng-class="{'is-opened': toggleMenu}">
     <ul>
         <li class="current"><a href="">Scores</a></li>
         <li><a href="">News</a></li>
@@ -27,7 +30,7 @@
     <!-- Sunday, 27 March -->
     <div class="centered-box">
         <div class="day-grouping">
-            Sunday, 27 March
+            {{ currentDate | date }}
         </div>
     </div>
     <div class="scores-box" ng-repeat="comp in games">
@@ -45,11 +48,11 @@
 
             <div ng-if="game.Active == false && game.Scrs[0] !== -1 && game.Scrs[1] !== -1" class="status-wrapper status-past">
                 <div class="score">
-                    <span ng-if="game.Scrs[0] < -1">0</span> <!-- Sometimes the update give less than -1 -->
-                    <span ng-if="game.Scrs[0] > -1">{{ game.Scrs[0] }}</span>
+                    <span ng-show="game.Scrs[0] == -2">0</span> <!-- Sometimes the update gives less than -1 -->
+                    <span ng-show="game.Scrs[0] > -1">{{ game.Scrs[0] }}</span>
                      - 
-                    <span ng-if="game.Scrs[1] < -1">0</span>
-                    <span ng-if="game.Scrs[1] > -1">{{ game.Scrs[1] }}</span>
+                    <span ng-show="game.Scrs[1] == -2">0</span>
+                    <span ng-show="game.Scrs[1] > -1">{{ game.Scrs[1] }}</span>
                 </div>
                 <span class="status">Finished</span>
             </div>
@@ -60,12 +63,12 @@
                 </div>
             </div>
             <div ng-if="game.Active == true" class="status-wrapper status-past">
-                <span ng-if="game.GT <= 45" class="status">First Half</span>
-                <span ng-if="game.GT > 45" class="status">Second Half</span>
+                <span ng-show="game.GT <= 45" class="status">First Half</span>
+                <span ng-show="game.GT > 45" class="status">Second Half</span>
                 <div class="score">
                     {{ game.Scrs[0] }} - {{ game.Scrs[1] }}
                 </div>
-                <span ng-if="game.Active == true" class="live">LIVE - '{{ game.GT }}</span>
+                <span ng-show="game.Active == true" class="live">LIVE - '{{ game.GT }}</span>
             </div>
 
             <div class="side2">

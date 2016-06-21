@@ -11,6 +11,19 @@ $highlighted-color: #18b5e2;
 $secondary-highlighted-color: #5d93ad;
 $alert-color: #ce1126;
 
+// Mixins
+@mixin tablet {
+  @media only screen and (min-width: 768px) and (max-width: 989px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
 body {
   font: 100% $font-stack;
   color: $primary-color;
@@ -44,6 +57,14 @@ ul {
   padding: 20px 25px;
 }
 
+.menu-trigger {
+	display: none;
+	float: right;
+	@include mobile {
+		display: block;
+	}
+}
+
 .sidebar {
   background-color: $secondary-dark-color;
   position: fixed;
@@ -52,6 +73,15 @@ ul {
   width: 170px;
   height: 100%;
   padding-top: 20px;
+  @include mobile {
+  	position: absolute;
+  	right: 0;
+  	width: 100%;
+  	display: none;
+  	&.is-opened {
+  		display: block;
+  	}
+  }
 
   ul {
     padding: 0 25px;
@@ -134,6 +164,10 @@ ul {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    .side2 {
+    	text-align: right;
     }
 
     .status-wrapper {

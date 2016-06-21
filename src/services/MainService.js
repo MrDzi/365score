@@ -1,4 +1,5 @@
 (function() {
+	
 	angular.module('365scoreApp')
 	.service('MainService', function($http){
 
