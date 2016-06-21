@@ -45,7 +45,11 @@
 
             <div ng-if="game.Active == false && game.Scrs[0] !== -1 && game.Scrs[1] !== -1" class="status-wrapper status-past">
                 <div class="score">
-                    {{ game.Scrs[0] }} - {{ game.Scrs[1] }}
+                    <span ng-if="game.Scrs[0] < -1">0</span> <!-- Sometimes the update give less than -1 -->
+                    <span ng-if="game.Scrs[0] > -1">{{ game.Scrs[0] }}</span>
+                     - 
+                    <span ng-if="game.Scrs[1] < -1">0</span>
+                    <span ng-if="game.Scrs[1] > -1">{{ game.Scrs[1] }}</span>
                 </div>
                 <span class="status">Finished</span>
             </div>

@@ -1,33 +1,36 @@
 (function() {
-	'use strict'
+	'use strict';
 
 	angular.module('365scoreApp')
-	.controller('MainCtrl', function($scope, MainService, $interval){
+	.controller('MainCtrl', ['$scope', 'MainService', '$interval', function($scope, MainService, $interval){
 
 		$scope.games = {};
-		$scope.competitions;
-		$scope.countries;
+		$scope.competitions = [];
+		$scope.countries = [];
 		$scope.lastUpdateID = null;
 
+		// initial function, gets all games, competitions and countries
 		function init() {
 			MainService.getGames().then(function(response){
-				$scope.allGames = response.data["Games"];
+				var allGames = response.data["Games"];
 				$scope.competitions = response.data["Competitions"];
 				$scope.countries = response.data["Countries"];
-				$scope.lastUpdateID = response.data["LastUpdateID"]
+				$scope.lastUpdateID = response.data["LastUpdateID"];
 
-				structureGames($scope.allGames);
+				structureGames(allGames);
 			});
 		}
 		
 		init();
 
+		// grouping the games by competitions
 		var structureGames = function(allGames) {
-			angular.forEach($scope.allGames, function(game, value){
+			angular.forEach(allGames, function(game, value){
 				var compId = game.Comp;
 				var competition = $scope.competitions.filter(function(obj) {
 				  	return obj.ID == compId;
 				});
+				game.date = game.STime.split(" ");
 
 				if (!$scope.games[compId]) {
 					$scope.games[compId] = {
@@ -36,10 +39,6 @@
 						gamesList: []
 					};
 				}
-				
-				game.date = game.STime.split(" ");
-
-				// TODO don't push if already exists!
 				if (!$scope.games[compId].gamesList) {
 					$scope.games[compId].gamesList = [];
 					$scope.games[compId].gamesList.push(game);
@@ -48,7 +47,7 @@
 					$scope.games[compId].gamesList.push(game);
 				}
 			});
-		}
+		};
 
 		// update games data on every 5 sec
 		$interval(updateGames, 5000);
@@ -57,27 +56,37 @@
 			MainService.getChanges($scope.lastUpdateID).then(function(response){
 				console.log(response.data);
 				$scope.lastUpdateID = response.data.LastUpdateID;
+
+				// check if game changes occured
 				if (response.data.Games) {
 					var updatedGames = response.data.Games;
 					for (var i = 0; i < updatedGames.length; i++) {
-						angular.forEach($scope.allGames, function(game){
+						var compId = updatedGames[i].Comp;
+						var existingGame;
+						angular.forEach($scope.games[compId].gamesList, function(game, index){
 							if (updatedGames[i].ID === game.ID) {
-								console.log(updatedGames[i].ID, game);
-								game = updatedGames[i];
-								angular.forEach($cope.games[game.Comp], function(game2) {
-									var givenGame = $cope.games[game.Comp].filter(function(obj) {
-									  	return obj.ID == compId;
+								// update specific game
+								angular.forEach(updatedGames[i], function(newValue, newKey){
+									angular.forEach($scope.games[game.Comp].gamesList[index], function(value, key){
+										if (newKey == key && newValue !== value) {
+											console.log($scope.games[game.Comp].gamesList[index][key], updatedGames[i][newKey]);
+											$scope.games[game.Comp].gamesList[index][key] = updatedGames[i][newKey];
+										}
 									});
-									// TODO don't update everything
-								}
+								});
+								existingGame = true;
+								console.log("update");
 							}
-						})
-					}
-					init($scope.allGames);					
+						});
+						// add new game
+						if (!existingGame) {
+							$scope.games[compId].gamesList.push(updatedGames[i]);
+							console.log("new");
+						}
+					}					
 				}
 			});
-		}
-		
-	})
+		}		
+	}]);
 	
 })();
