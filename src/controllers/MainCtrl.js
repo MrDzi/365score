@@ -21,20 +21,21 @@
 				var dateString = response.data.CurrentDate.split('-');
 				$scope.currentDate = new Date(dateString[2], dateString[1] - 1, dateString[0]);
 
-				structureGames(allGames);
+				groupeGames(allGames);
 			});
-		}
+		};
 		
 		init();
 
 		// grouping the games by competitions
-		var structureGames = function(allGames) {
+		var groupeGames = function(allGames) {
 			angular.forEach(allGames, function(game, value){
 				var compId = game.Comp;
 				var competition = $scope.competitions.filter(function(obj) {
 				  	return obj.ID == compId;
 				});
 				game.date = game.STime.split(" ");
+				game.date[0] = game.date[0].split("-");
 
 				if (!$scope.games[compId]) {
 					$scope.games[compId] = {
@@ -58,37 +59,45 @@
 
 		function updateGames() {
 			MainService.getChanges($scope.lastUpdateID).then(function(response){
-				console.log(response.data);
+
 				$scope.lastUpdateID = response.data.LastUpdateID;
 
-				// check if game changes occured
-				if (response.data.Games) {
+				if (response.data.Games) { // <-- check if game changes occured
 					var updatedGames = response.data.Games;
+					var existingGame;
 					for (var i = 0; i < updatedGames.length; i++) {
 						var compId = updatedGames[i].Comp;
-						var existingGame;
-						angular.forEach($scope.games[compId].gamesList, function(game, index){
-							if (updatedGames[i].ID === game.ID) {
 
-								// update specific game
-								angular.forEach(updatedGames[i], function(newValue, newKey){
-									angular.forEach($scope.games[game.Comp].gamesList[index], function(value, key){
-										if (newKey == key && newValue !== value) {
-											console.log($scope.games[game.Comp].gamesList[index][key], updatedGames[i][newKey]);
-											$scope.games[game.Comp].gamesList[index][key] = updatedGames[i][newKey];
-										}
+						if ($scope.games[compId]) { // <-- check if the competition exists
+							angular.forEach($scope.games[compId].gamesList, function(game, index){
+								if (updatedGames[i].ID === game.ID) { // <-- check if the game exists
+									console.log(updatedGames[i]);
+									existingGame = true;
+
+									// update specific game
+									angular.forEach(updatedGames[i], function(newValue, newKey){
+										angular.forEach($scope.games[game.Comp].gamesList[index], function(value, key){
+											if (newKey == key && newValue !== value) {
+												if (newKey == "Scrs" && newValue[0] > -1) {
+													$scope.games[game.Comp].gamesList[index]["Scrs"][0] = newValue[0];
+												}
+												else if (newKey == "Scrs" && newValue[1] > -1) {
+													$scope.games[game.Comp].gamesList[index]["Scrs"][1] = newValue[1];
+												}
+												else {
+													$scope.games[game.Comp].gamesList[index][key] = updatedGames[i][newKey];
+												}
+											}
+										});
 									});
-								});
-								existingGame = true;
-								console.log("update");
-							}
-						});
-						// add new game
-						if (!existingGame) {
-							$scope.games[compId].gamesList.push(updatedGames[i]);
-							console.log("new");
+								}
+							});							
+							// add new game  <-- not sure if this is necessary for the assignment and how the new games are supposed to be added
+							if (!existingGame) {
+								console.log('new: ', updatedGames[i]);
+							};
 						}
-					}					
+					}
 				}
 			});
 		}		

@@ -7,7 +7,7 @@
     <link href="css/365scores.css" rel="stylesheet" media="screen">
     <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
 </head>
-<body ng-controller="MainCtrl">
+<body ng-controller="MainCtrl" ng-class="{'no-scroll': toggleMenu}">
 <div class="header">
     <div class="logo-wrapper">
         <a href="index.html"><img src="images/logo.png" alt="365Scores"></a>
@@ -38,7 +38,7 @@
             <img ng-src="http://imagescache.365scores.com/image/upload/w_140,h_140,c_limit,f_webp,q_90,d_Countries:Round:default.png/Countries/Round/{{comp.countryId}}" width="30" height="20">
             <h3>{{ comp.compName }}</h3>
         </div>
-        <div class="scores-box-row" ng-repeat="game in comp.gamesList">
+        <div class="scores-box-row" ng-repeat="game in comp.gamesList | orderBy: 'STime'">
             <div class="logo1">
                 <img ng-src="http://imagescache.365scores.com/image/upload/w_48,h_48,c_limit,f_webp,q_90,d_Competitors:default1.png/Competitors/{{game.Comps[0].ID}}">
             </div>
@@ -48,23 +48,19 @@
 
             <div ng-if="game.Active == false && game.Scrs[0] !== -1 && game.Scrs[1] !== -1" class="status-wrapper status-past">
                 <div class="score">
-                    <span ng-show="game.Scrs[0] == -2">0</span> <!-- Sometimes the update gives less than -1 -->
                     <span ng-show="game.Scrs[0] > -1">{{ game.Scrs[0] }}</span>
-                     - 
-                    <span ng-show="game.Scrs[1] == -2">0</span>
+                     -
                     <span ng-show="game.Scrs[1] > -1">{{ game.Scrs[1] }}</span>
                 </div>
                 <span class="status">Finished</span>
             </div>
             <div ng-if="game.Active == false && game.Scrs[0] === -1 && game.Scrs[1] === -1" class="status-wrapper status-past">
-                <span class="status">{{ game.date[0] }}</span>
-                <div class="score">
-                    {{ game.date[1] }}
+                <div class="score date">
+                    <span class="mobile-hidden">{{ game.date[0][0] }}/{{ game.date[0][1] }}</span> {{ game.date[1] }}
                 </div>
+                <span class="status mobile-visible">{{ game.date[0][0] }}/{{ game.date[0][1] }}</span>
             </div>
             <div ng-if="game.Active == true" class="status-wrapper status-past">
-                <span ng-show="game.GT <= 45" class="status">First Half</span>
-                <span ng-show="game.GT > 45" class="status">Second Half</span>
                 <div class="score">
                     {{ game.Scrs[0] }} - {{ game.Scrs[1] }}
                 </div>

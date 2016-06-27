@@ -1,3 +1,4 @@
+/***  VARIABLES  ***/
 $font-stack: Helvetica, sans-serif;
 $sidebar-font-size: 20px;
 $header-height: 90px;
@@ -11,202 +12,282 @@ $highlighted-color: #18b5e2;
 $secondary-highlighted-color: #5d93ad;
 $alert-color: #ce1126;
 
-// Mixins
+/***  MIXINS  ***/
 @mixin tablet {
-  @media only screen and (min-width: 768px) and (max-width: 989px) {
-    @content;
-  }
+    @media only screen and (min-width: 768px) and (max-width: 989px) {
+        @content;
+    }
 }
 
 @mixin mobile {
-  @media only screen and (max-width: 767px) {
-    @content;
-  }
+    @media only screen and (max-width: 767px) {
+        @content;
+    }
 }
 
+/***  STYLES  ***/
 body {
-  font: 100% $font-stack;
-  color: $primary-color;
-  background-color: $dark-color;
+    font: 100% $font-stack;
+    color: $primary-color;
+    background-color: $dark-color;
+    &.no-scroll {
+        overflow: hidden;
+    }
 }
 
 a {
-  text-decoration: none;
-  color: $primary-color;
+    text-decoration: none;
+    color: $primary-color;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
-
-  li {
     margin: 0;
-    list-style-type: none;
-  }
+    padding: 0;
+    li {
+        margin: 0;
+        list-style-type: none;
+    }
 }
 
 .header {
-  background-color: $darkest-color;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: $header-height;
+    background-color: $darkest-color;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+    @include mobile {
+        height: 60px;
+    }
 }
 
 .logo-wrapper {
-  padding: 20px 25px;
+    padding: 20px 25px;
+    @include mobile {
+        padding: 15px 20px;
+        img {
+            width: 70px;
+        }
+    }
 }
 
 .menu-trigger {
-	display: none;
-	float: right;
-	@include mobile {
-		display: block;
-	}
+    display: none;
+    float: right;
+    cursor: pointer;
+    font-size: 26px;
+    @include mobile {
+        display: block;
+    }
 }
 
 .sidebar {
-  background-color: $secondary-dark-color;
-  position: fixed;
-  left: 0;
-  top: $header-height;
-  width: 170px;
-  height: 100%;
-  padding-top: 20px;
-  @include mobile {
-  	position: absolute;
-  	right: 0;
-  	width: 100%;
-  	display: none;
-  	&.is-opened {
-  		display: block;
-  	}
-  }
-
-  ul {
-    padding: 0 25px;
-
-    li {
-      font-size: $sidebar-font-size;
-      padding: 20px 0;
+    background-color: $secondary-dark-color;
+    position: fixed;
+    left: 0;
+    top: $header-height;
+    width: 170px;
+    height: 100%;
+    padding-top: 20px;
+    @include tablet {
+        width: 155px;
     }
-
-    li.current a {
-      color: $highlighted-color;
+    @include mobile {
+        top: 60px;
+        right: 0;
+        width: 100%;
+        display: none;
+        &.is-opened {
+            display: block;
+        }
     }
-  }
+    ul {
+        padding: 0 25px;
+        li {
+            font-size: $sidebar-font-size;
+            padding: 20px 0;
+            @include tablet {
+                font-size: 18px;
+                padding: 15px 0;
+            }
+            @include mobile {
+                font-size: 18px;
+                padding: 13px 0;
+                text-align: right;
+            }
+        }
+        li.current a {
+            color: $highlighted-color;
+        }
+    }
 }
 
 .main-section {
-  margin-left: 170px;
-  margin-top: $header-height + 40px;
+    margin-left: 170px;
+    margin-top: $header-height + 40px;
+    @include tablet {
+        margin-right: 15px;
+    }
+    @include mobile {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: $header-height + 20px;
+    }
 }
 
 .centered-box {
-  margin: 0 auto;
-  width: 700px;
-
-  .day-grouping {
-    text-align: center;
-    font-size: 24px;
-    margin: 40px 0 30px 0;
-    color: $secondary-highlighted-color;
-  }
+    margin: 0 auto;
+    width: 700px;
+    @include tablet {
+        width: 100%;
+    }
+    @include mobile {
+        width: 100%;
+    }
+    .day-grouping {
+        text-align: center;
+        font-size: 24px;
+        margin: 40px 0 30px 0;
+        color: $secondary-highlighted-color;
+        @include mobile {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+    }
 }
 
 .scores-box {
-  @extend .centered-box;
-
-  border-radius: 8px;
-  background-color: $secondary-dark-color;
-  box-shadow: 0 0 18px 0 rgba(0,0,0,0.35);
-  margin-bottom: 20px;
-
-  .scores-box-header {
-    color: $highlighted-color;
-    font: $box-header-font-size;
-    background-color: $secondary-darkest-color;
-    border-radius: 8px 8px 0 0;
-    line-height: 50px;
-    padding: 0 3%;
-
-    img {
-      float: left;
-      padding: 15px 15px 15px 0;
-    }
-
-    h3 {
-      margin: 0;
-      font-weight: normal;
-    }
-  }
-
-  .scores-box-row {
-    height: 90px;
-    border-bottom: solid 1px $dark-color;
-    clear: both;
-
-    .logo1, .logo2, .side1, .side2, .status-wrapper {
-      float: left;
-    }
-
-    .logo1, .logo2 {
-      width: 4%;
-      padding: 30px 3%;
-      img {
-        width: 100%;
-      }
-    }
-    .side1, .side2 {
-      width: 30%;
-      line-height: 80px;
-      font-size: 20px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .side2 {
-    	text-align: right;
-    }
-
-    .status-wrapper {
-      width: 20%;
-      text-align: center;
-
-      .score {
-        font-size: 36px;
-        font-weight: bold;
-        line-height: 44px;
+    @extend .centered-box;
+    border-radius: 8px;
+    background-color: $secondary-dark-color;
+    box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.35);
+    margin-bottom: 20px;
+    .scores-box-header {
         color: $highlighted-color;
-      }
-
-      .extra {
-        line-height: 20px;
-        color: $secondary-highlighted-color;
-      }
-
-      .status {
-        color: $secondary-highlighted-color;
-      }
-
-      .live {
-        background-color: $alert-color;
-        padding: 2px 9px;
-        border-radius: 10px;
-      }
+        font: $box-header-font-size;
+        background-color: $secondary-darkest-color;
+        border-radius: 8px 8px 0 0;
+        line-height: 50px;
+        padding: 0 3%;
+        img {
+            float: left;
+            padding: 15px 15px 15px 0;
+        }
+        h3 {
+            margin: 0;
+            font-weight: normal;
+            @include mobile {
+                font-size: 16px;
+            }
+        }
     }
-
-    .status-past {
-      .score {
-        padding-top: 20px;
-      }
+    .scores-box-row {
+        height: 90px;
+        border-bottom: solid 1px $dark-color;
+        clear: both;
+        @include mobile {
+            height: 70px;
+        }
+        .logo1,
+        .logo2,
+        .side1,
+        .side2,
+        .status-wrapper {
+            float: left;
+        }
+        .logo1,
+        .logo2 {
+            width: 4%;
+            padding: 30px 3%;
+            @include mobile {
+                padding: 22px 2%;
+            }
+            img {
+                width: 100%;
+            }
+        }
+        .side1,
+        .side2 {
+            width: 30%;
+            line-height: 80px;
+            font-size: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            @include mobile {
+                font-size: 15px;
+                line-height: 60px;
+            }
+        }
+        .side2 {
+            text-align: right;
+        }
+        .status-wrapper {
+            width: 20%;
+            text-align: center;
+            @include mobile {
+                width: 22%;
+            }
+            .score {
+                font-size: 36px;
+                font-weight: bold;
+                line-height: 44px;
+                color: $highlighted-color;
+                &.date {
+                	font-size: 22px;
+                	font-weight: normal;
+                }
+                @include mobile {
+                    font-size: 22px;
+                    line-height: 28px;
+                }
+            }
+            .extra {
+                line-height: 20px;
+                color: $secondary-highlighted-color;
+            }
+            .status {
+                color: $secondary-highlighted-color;
+                @include mobile {
+                    font-size: 12px;
+                }
+            }
+            .live {
+                background-color: $alert-color;
+                padding: 2px 9px;
+                border-radius: 10px;
+                @include mobile {
+                    padding: 1px 6px;
+                    font-size: 12px;
+                }
+            }
+        }
+        .status-past {
+            .score {
+                padding-top: 20px;
+                @include mobile {
+                    padding-top: 15px;
+                }
+            }
+        }
+        .status-future {
+            .score {
+                padding-top: 20px;
+                @include mobile {
+                    padding-top: 15px;
+                }
+            }
+        }
     }
+}
 
-    .status-future {
-      .score {
-        padding-top: 20px;
-      }
-    }
-  }
+.mobile-hidden {
+	@include mobile {
+		display: none;
+	}
+}
+.mobile-visible {
+	display: none;
+	@include mobile {
+		display: block;
+	}
 }

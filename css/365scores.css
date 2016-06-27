@@ -1,7 +1,12 @@
+/***  VARIABLES  ***/
+/***  MIXINS  ***/
+/***  STYLES  ***/
 body {
   font: 100% Helvetica, sans-serif;
   color: #ffffff;
   background-color: #21282d; }
+  body.no-scroll {
+    overflow: hidden; }
 
 a {
   text-decoration: none;
@@ -20,13 +25,23 @@ ul {
   top: 0;
   width: 100%;
   height: 90px; }
+  @media only screen and (max-width: 767px) {
+    .header {
+      height: 60px; } }
 
 .logo-wrapper {
   padding: 20px 25px; }
+  @media only screen and (max-width: 767px) {
+    .logo-wrapper {
+      padding: 15px 20px; }
+      .logo-wrapper img {
+        width: 70px; } }
 
 .menu-trigger {
   display: none;
-  float: right; }
+  float: right;
+  cursor: pointer;
+  font-size: 26px; }
   @media only screen and (max-width: 767px) {
     .menu-trigger {
       display: block; } }
@@ -39,9 +54,12 @@ ul {
   width: 170px;
   height: 100%;
   padding-top: 20px; }
+  @media only screen and (min-width: 768px) and (max-width: 989px) {
+    .sidebar {
+      width: 155px; } }
   @media only screen and (max-width: 767px) {
     .sidebar {
-      position: absolute;
+      top: 60px;
       right: 0;
       width: 100%;
       display: none; }
@@ -52,21 +70,48 @@ ul {
     .sidebar ul li {
       font-size: 20px;
       padding: 20px 0; }
+      @media only screen and (min-width: 768px) and (max-width: 989px) {
+        .sidebar ul li {
+          font-size: 18px;
+          padding: 15px 0; } }
+      @media only screen and (max-width: 767px) {
+        .sidebar ul li {
+          font-size: 18px;
+          padding: 13px 0;
+          text-align: right; } }
     .sidebar ul li.current a {
       color: #18b5e2; }
 
 .main-section {
   margin-left: 170px;
   margin-top: 130px; }
+  @media only screen and (min-width: 768px) and (max-width: 989px) {
+    .main-section {
+      margin-right: 15px; } }
+  @media only screen and (max-width: 767px) {
+    .main-section {
+      margin-left: 15px;
+      margin-right: 15px;
+      margin-top: 110px; } }
 
 .centered-box, .scores-box {
   margin: 0 auto;
   width: 700px; }
+  @media only screen and (min-width: 768px) and (max-width: 989px) {
+    .centered-box, .scores-box {
+      width: 100%; } }
+  @media only screen and (max-width: 767px) {
+    .centered-box, .scores-box {
+      width: 100%; } }
   .centered-box .day-grouping, .scores-box .day-grouping {
     text-align: center;
     font-size: 24px;
     margin: 40px 0 30px 0;
     color: #5d93ad; }
+    @media only screen and (max-width: 767px) {
+      .centered-box .day-grouping, .scores-box .day-grouping {
+        font-size: 20px;
+        margin: 20px 0; } }
 
 .scores-box {
   border-radius: 8px;
@@ -86,46 +131,101 @@ ul {
     .scores-box .scores-box-header h3 {
       margin: 0;
       font-weight: normal; }
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-header h3 {
+          font-size: 16px; } }
   .scores-box .scores-box-row {
     height: 90px;
     border-bottom: solid 1px #21282d;
     clear: both; }
-    .scores-box .scores-box-row .logo1, .scores-box .scores-box-row .logo2, .scores-box .scores-box-row .side1, .scores-box .scores-box-row .side2, .scores-box .scores-box-row .status-wrapper {
+    @media only screen and (max-width: 767px) {
+      .scores-box .scores-box-row {
+        height: 70px; } }
+    .scores-box .scores-box-row .logo1,
+    .scores-box .scores-box-row .logo2,
+    .scores-box .scores-box-row .side1,
+    .scores-box .scores-box-row .side2,
+    .scores-box .scores-box-row .status-wrapper {
       float: left; }
-    .scores-box .scores-box-row .logo1, .scores-box .scores-box-row .logo2 {
+    .scores-box .scores-box-row .logo1,
+    .scores-box .scores-box-row .logo2 {
       width: 4%;
       padding: 30px 3%; }
-      .scores-box .scores-box-row .logo1 img, .scores-box .scores-box-row .logo2 img {
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-row .logo1,
+        .scores-box .scores-box-row .logo2 {
+          padding: 22px 2%; } }
+      .scores-box .scores-box-row .logo1 img,
+      .scores-box .scores-box-row .logo2 img {
         width: 100%; }
-    .scores-box .scores-box-row .side1, .scores-box .scores-box-row .side2 {
+    .scores-box .scores-box-row .side1,
+    .scores-box .scores-box-row .side2 {
       width: 30%;
       line-height: 80px;
       font-size: 20px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis; }
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-row .side1,
+        .scores-box .scores-box-row .side2 {
+          font-size: 15px;
+          line-height: 60px; } }
     .scores-box .scores-box-row .side2 {
       text-align: right; }
     .scores-box .scores-box-row .status-wrapper {
       width: 20%;
       text-align: center; }
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-row .status-wrapper {
+          width: 22%; } }
       .scores-box .scores-box-row .status-wrapper .score {
         font-size: 36px;
         font-weight: bold;
         line-height: 44px;
         color: #18b5e2; }
+        .scores-box .scores-box-row .status-wrapper .score.date {
+          font-size: 22px;
+          font-weight: normal; }
+        @media only screen and (max-width: 767px) {
+          .scores-box .scores-box-row .status-wrapper .score {
+            font-size: 22px;
+            line-height: 28px; } }
       .scores-box .scores-box-row .status-wrapper .extra {
         line-height: 20px;
         color: #5d93ad; }
       .scores-box .scores-box-row .status-wrapper .status {
         color: #5d93ad; }
+        @media only screen and (max-width: 767px) {
+          .scores-box .scores-box-row .status-wrapper .status {
+            font-size: 12px; } }
       .scores-box .scores-box-row .status-wrapper .live {
         background-color: #ce1126;
         padding: 2px 9px;
         border-radius: 10px; }
+        @media only screen and (max-width: 767px) {
+          .scores-box .scores-box-row .status-wrapper .live {
+            padding: 1px 6px;
+            font-size: 12px; } }
     .scores-box .scores-box-row .status-past .score {
       padding-top: 20px; }
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-row .status-past .score {
+          padding-top: 15px; } }
     .scores-box .scores-box-row .status-future .score {
       padding-top: 20px; }
+      @media only screen and (max-width: 767px) {
+        .scores-box .scores-box-row .status-future .score {
+          padding-top: 15px; } }
+
+@media only screen and (max-width: 767px) {
+  .mobile-hidden {
+    display: none; } }
+
+.mobile-visible {
+  display: none; }
+  @media only screen and (max-width: 767px) {
+    .mobile-visible {
+      display: block; } }
 
 /*# sourceMappingURL=365scores.css.map */

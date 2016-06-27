@@ -8,13 +8,13 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // sass: {
-        //     dist: {
-        //         files: {
-        //             'css/365scores.css': 'css/365scores.scss'
-        //         }
-        //     }
-        // },
+        sass: {
+            dist: {
+                files: {
+                    'css/365scores.css': 'css/365scores.scss'
+                }
+            }
+        },
         copy: {
             files: {
                 src: 'node_modules/normalize.css/normalize.css',
@@ -35,10 +35,10 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            // sass: {
-            //     files: ['**/*.scss'],
-            //     tasks: ['sass']
-            // },
+            sass: {
+                files: ['**/*.scss'],
+                tasks: ['sass']
+            },
             js: {
                 files: ['<%= jshint.files %>'],
                 tasks: ['jshint']
