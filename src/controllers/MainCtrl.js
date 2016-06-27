@@ -71,18 +71,19 @@
 						if ($scope.games[compId]) { // <-- check if the competition exists
 							angular.forEach($scope.games[compId].gamesList, function(game, index){
 								if (updatedGames[i].ID === game.ID) { // <-- check if the game exists
-									console.log(updatedGames[i]);
 									existingGame = true;
 
 									// update specific game
 									angular.forEach(updatedGames[i], function(newValue, newKey){
 										angular.forEach($scope.games[game.Comp].gamesList[index], function(value, key){
 											if (newKey == key && newValue !== value) {
-												if (newKey == "Scrs" && newValue[0] > -1) {
-													$scope.games[game.Comp].gamesList[index]["Scrs"][0] = newValue[0];
-												}
-												else if (newKey == "Scrs" && newValue[1] > -1) {
-													$scope.games[game.Comp].gamesList[index]["Scrs"][1] = newValue[1];
+												if (newKey == "Scrs") {
+													if (newValue[0] > -1) {
+														$scope.games[game.Comp].gamesList[index]["Scrs"][0] = newValue[0];
+													}
+													if (newValue[1] > -1) {
+														$scope.games[game.Comp].gamesList[index]["Scrs"][1] = newValue[1];
+													}
 												}
 												else {
 													$scope.games[game.Comp].gamesList[index][key] = updatedGames[i][newKey];
@@ -91,13 +92,13 @@
 										});
 									});
 								}
-							});							
+							});
 							// add new game  <-- not sure if this is necessary for the assignment and how the new games are supposed to be added
 							if (!existingGame) {
 								console.log('new: ', updatedGames[i]);
 							};
 						}
-					}
+					}					
 				}
 			});
 		}		
